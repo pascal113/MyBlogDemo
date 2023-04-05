@@ -59,7 +59,6 @@ class AdminManagerUser extends Component {
     }
 
     componentDidMount() {
-        //缓存
         if(this.props.list.length===0)
             this.props.getAllUsers();
     }

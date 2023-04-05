@@ -48,7 +48,8 @@ class Admin extends Component {
                                         <Route path={`${url}/managerTags`} component={AdminManagerTags}/>
                                         <Route path={`${url}/newArticle`} component={AdminNewArticle}/>
                                         <Route path={`${url}/managerArticle`} component={AdminManagerArticle}/>
-                                        <Route path={`${url}/managerComment`} component={AdminManagerComment}/>
+                                        <Route path={`${url}/managerComment`} component={AdminManagerComment}/>                                        
+                                        <Route path={`${url}/managerHomeBanner`} component={AdminHomeBanner}/>
                                         <Route path={`${url}/detail`} component={Detail}/>
                                         <Route component={NotFound}/>
                                     </Switch>

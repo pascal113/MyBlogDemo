@@ -29,9 +29,6 @@ sudo apt install python
 
 sudo systemctl start mongod
 
-注意MongoDB初始化后需要初始化一个admin/admin账户，用于登录后台管理
-```
-
 ## Run
 
     git clone git@github.com:Nealyang/React-Express-Blog-Demo.git

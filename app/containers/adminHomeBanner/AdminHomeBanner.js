@@ -3,6 +3,10 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {connect} from 'react-redux'
 import {actions} from '../../reducers/index'
 import {bindActionCreators} from 'redux'
+import ImageUploader from 'react-images-upload';
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
+import 'react-images-uploader/font.css';
 
 const {user_auth} = actions;
 class AdminHomeBanner extends Component {
@@ -14,7 +18,24 @@ class AdminHomeBanner extends Component {
     render() {
         return(
             <div>
-                <h1 >Welcome to my home banner</h1>
+                <h1 >Upload Banner Image</h1>
+                <ImageUploader
+                    withIcon={true}
+                    buttonText='Choose images'
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
+                />
+
+                <ImagesUploader
+                    url="http://localhost:3030/multiple"
+                    optimisticPreviews
+                    onLoadEnd={(err) => {
+                        if (err) {
+                            console.error(err);
+                        }
+                    }}
+                    label="Upload multiple images"
+                />
             </div>
         )
 
