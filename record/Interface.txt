@@ -1,0 +1,13 @@
+/api/user/register      Register
+/api/user/login         Login
+/api/user/userInfo      Check user
+/api/admin/getUsers     get user info
+/api/getAllTags   GetAll 
+/api/admin/tags/addTag       
+/api/admin/tags/delTag       
+/api/admin/article/addArticle   
+/api/admin/article/modifiedArticle  
+/api/admin/article/delArticle   
+/api/admin/article/updateArticle   
+/api/getArticles                
+/api/getArticleDetail           
