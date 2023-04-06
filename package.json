@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nealyang/React-Express-Blog-Demo.git"
+    "url": "git+https://github.com/pascal113/MyBlogDemo.git"
   },
-  "author": "Nealyang",
+  "author": "PCH",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Nealyang/React-Express-Blog-Demo/issues"
+    "url": "https://github.com/pascal113/MyBlogDemo.git"
   },
-  "homepage": "https://github.com/Nealyang/React-Express-Blog-Demo#readme",
+  "homepage": "https://github.com/pascal113/MyBlogDemo.git",
   "dependencies": {
     "antd": "^2.13.1",
     "axios": "^0.16.2",

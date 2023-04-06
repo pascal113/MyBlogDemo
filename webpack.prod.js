@@ -81,21 +81,21 @@ module.exports = {
     plugins: [
         new CleanPlugin(['build']),
         new ProgressBarPlugin(),
-        new webpack.optimize.AggressiveMergingPlugin(),//改善chunk传输
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.DefinePlugin({
             "progress.env.NODE_ENV": JSON.stringify('production')
         }),
         new HtmlWebpackPlugin({
-            title: "Nealyang's Blog",
+            title: "My Blog",
             showErrors: true,
         }),
-        new webpack.NoEmitOnErrorsPlugin(),//保证出错时页面不阻塞，且会在编译结束后报错
+        new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin({
             filename:'bundle.[contenthash].css',
             disable:false,
             allChunks:true
         }),
-        new webpack.HashedModuleIdsPlugin(),//用 HashedModuleIdsPlugin 可以轻松地实现 chunkhash 的稳定化
+        new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: function (module) {

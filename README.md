@@ -31,7 +31,7 @@ sudo systemctl start mongod
 
 ## Run
 
-    git clone git@github.com:Nealyang/React-Express-Blog-Demo.git
+    git clone git clone git@github.com:pascal113/MyBlogDemo.git
     
     npm i
     
