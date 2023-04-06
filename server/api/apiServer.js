@@ -26,6 +26,43 @@ app.use(session({
 }));
 
 
+const multer = require('multer');
+const fs = require('fs');
+
+try {
+  fs.readdirSync('uploads');
+} catch (error) {
+  console.error('if no uploads folder, make uploads folder.');
+  fs.mkdirSync('uploads');
+}
+
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination(req, file, done) {
+//       done(null, 'uploads/');
+//     },
+//     filename(req, file, done) {
+//       const ext = path.extname(file.originalname);
+//       done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+//     },
+//   }),
+//   limits: { fileSize: 5 * 1024 * 1024 },
+// });
+
+const upload = multer({ dest: 'uploads/' });
+
+app.get('/upload', (req, res) => {
+    console.log('get upload');    
+    res.send('ok');
+});
+
+// app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('image'), (req, res) => {
+    console.log('post upload');
+    console.log(req.file);
+    res.send('ok');
+});
+
 //blog rounter
 app.use('/', require('./main'));
 //admin router
