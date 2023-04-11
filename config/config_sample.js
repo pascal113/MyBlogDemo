@@ -5,7 +5,7 @@ module.exports = {
     apiPort:process.env.APIPORT || '3030',
     dbHost:"localhost",
     dbPort:"27017",
-    mailApiKey:'',
+    mailApiKey:'YOUR KEYS',
     app:{
         title:"personal blog",
         description:'My personal blog demo',

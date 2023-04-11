@@ -4,12 +4,39 @@ const router = Express.Router();
 import Images from '../../models/images'
 import {responseClient} from '../util'
 
-router.post('/addImage', function (req, res) {
+console.log('import images');
+
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log('destination');
+    cb(null, 'static/uploads/');
+  },
+  filename: function (req, file, cb) {
+    console.log('filename');
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + Date.now() + ext);
+  }
+});
+
+const upload = multer({ storage: storage });
+// const upload = multer({ 
+//     dest: 'static/uploads/',
+//     limits: { fileSize: 5 * 1024 * 1024 }
+// });
+
+router.post('/addImage', upload.single('image'), (req, res)  => {
+    
+    console.log('post addImage');
+    console.log(req.file);
+
     const {
         type,
         description
     } = req.body;
-    const path =  `/${Math.round(Math.random() * 9 + 1)}.jpg`;
+    let path =  req.file.filename;
 
     let tempImages = new Images({
         path,
@@ -41,7 +68,16 @@ router.post('/updateImage',(req,res)=>{
     });
 });
 
-router.get('/delImage',(req,res)=>{
+router.get('/getAllImages', (req, res) => {
+    console.log('getAllImages');
+    Images.find(null, 'name').then(data => {
+        responseClient(res, 200, 0, 'Request success!', data);
+    }).catch(err => {
+        responseClient(res);
+    })
+});
+
+router.delete('/delImage',(req,res)=>{
     let id = req.query.id;
     Images.remove({_id:id})
         .then(result=>{

@@ -4,15 +4,17 @@ import User from '../../models/user'
 import {responseClient} from '../util'
 
 //admin request to backend
-
 router.use( (req,res,next) =>{
-    if(req.session.userInfo){
-        next()
-    }else{
-        res.send(responseClient(res,200,1,'Information is out. Please retry input.'));
-    }
+    console.log('check router');
+    next();
+    // if(req.session.userInfo){
+    //     next()
+    // }else{
+    //     res.send(responseClient(res,200,1,'Information is out. Please retry input.'));
+    // }
 });
 
+router.use('/images',require('./images'));
 router.use('/tags',require('./tags'));
 router.use('/article',require('./article'));
 router.get('/getUsers',(req,res)=>{

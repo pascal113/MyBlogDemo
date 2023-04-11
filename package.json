@@ -40,7 +40,7 @@
     "http-proxy": "^1.16.2",
     "images-upload-middleware": "^1.1.1",
     "markdown": "^0.5.0",
-    "mongoose": "^4.11.11",
+    "mongoose": "^6.5.5",
     "multer": "^1.4.5-lts.1",
     "qs": "^6.5.1",
     "react": "^15.6.1",
@@ -60,7 +60,8 @@
     "remark": "^8.0.0",
     "remark-react": "^4.0.1",
     "serialize-javascript": "^1.4.0",
-    "serve-favicon": "^2.4.4"
+    "serve-favicon": "^2.4.4",
+    "sib-api-v3-sdk": "^8.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -95,7 +96,6 @@
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.0",
     "npm": "^5.4.1",
-    "open-browser-webpack-plugin": "0.0.5",
     "postcss-loader": "^2.0.6",
     "progress-bar-webpack-plugin": "^1.10.0",
     "react-hot-loader": "^3.0.0-beta.6",

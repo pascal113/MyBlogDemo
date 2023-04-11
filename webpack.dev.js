@@ -1,7 +1,6 @@
 const pathLib = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const config = require('./config/config');
@@ -103,11 +102,11 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "manifest"
-        }),
-        new OpenBrowserPlugin({
-            url: `http://${config.host}:${config.port}`
         })
     ],
+    devServer: {
+        open: true
+    },
     resolve: {
         extensions: ['.js', '.json', '.sass', '.scss', '.less', 'jsx']
     }
