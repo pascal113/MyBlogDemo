@@ -6,6 +6,7 @@ module.exports = {
     dbHost:"localhost",
     dbPort:"27017",
     mailApiKey:'YOUR KEYS',
+    mailSender: 'YOUR EMAIL',
     app:{
         title:"personal blog",
         description:'My personal blog demo',

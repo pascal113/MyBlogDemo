@@ -71,38 +71,91 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 
-app.post('/sendEmail', (req, res) => {
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+
+const apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = config.mailApiKey;
+
+const transactionEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
+
+let smtpMailData = new SibApiV3Sdk.SendSmtpEmail();
+
+const sender = {
+    email: config.mailSender, // your email address
+    name: 'Example Sender',
+};
+
+const SendWaitlistEmail = async (subject, to_email) => {
+    try {
+        smtpMailData.sender = sender;
+        
+        smtpMailData.to = [{
+            email: to_email,
+            name: 'fullname'
+        }];
+        
+        smtpMailData.subject = subject;
+        
+        smtpMailData.params = {
+            'name': 'param',
+            'twitter': '@makeuseof'
+        };
+        
+        smtpMailData.htmlContent = "<html><body><p>Hello {{ params.name }}, "
+            + "welcome to makeuseof.com waitlist. We'll notify you "
+            + "when we launch. Kindly follow us on Twitter "
+            + "{{ params.twitter }}.</p></body></html>";
+        
+        // send email
+        await transactionEmailApi.sendTransacEmail(smtpMailData)
+            .then((data) => { 
+                console.log(data) // log the email id
+            })
+            .catch((error) => {
+                console.error(error)
+                throw new Error(error) // handle errors
+            })
+    } catch (error) {
+        console.log('An error occured...')
+        console.error(error)
+        throw new Error(error) // handle errors
+    }
+}
+
+app.post('/sendEmail', async (req, res) => {
     console.log('post sendEmail');
     console.log(req.body);
     let {
         subject,
-        sender,
-        to
+        sender_email,
+        to_email
     } = req.body;
 
-    let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+    await SendWaitlistEmail(subject, to_email);
+    
+    // let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-    let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-    sendSmtpEmail.subject = subject;
-    sendSmtpEmail.htmlContent = '<html><body><h1>Test email</h1></body></html>';
-    sendSmtpEmail.sender = {
-        name: 'Sender Name',
-        email: sender
-    };
-    sendSmtpEmail.to = [{
-        name: 'Recipient Name',
-        email: to
-    }];
+    // let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+    // sendSmtpEmail.subject = subject;
+    // sendSmtpEmail.htmlContent = '<html><body><h1>Test email</h1></body></html>';
+    // sendSmtpEmail.sender = {
+    //     name: 'Sender Name',
+    //     email: sender
+    // };
+    // sendSmtpEmail.to = [{
+    //     name: 'Recipient Name',
+    //     email: to
+    // }];
 
-    console.log(sendSmtpEmail);
+    // console.log(sendSmtpEmail);
 
-    apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
-        console.log('API call successful. Returned data: ' + JSON.stringify(data));
-        res.send('ok');
-    }, function(error) {
-        console.error(error);
-        res.send('error');
-    });    
+    // apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
+    //     console.log('API call successful. Returned data: ' + JSON.stringify(data));
+    //     res.send('ok');
+    // }, function(error) {
+    //     console.error(error);
+    //     res.send('error');
+    // });    
 
     res.send('ok');
 });
@@ -148,18 +201,18 @@ mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/blog`, function (e
         } else { 
             let defaultClient = SibApiV3Sdk.ApiClient.instance;
 
-            // Configure API key authorization: api-key
-            let apiKey = defaultClient.authentications['api-key'];
-            apiKey.apiKey = config.mailApiKey;
+            // // Configure API key authorization: api-key
+            // let apiKey = defaultClient.authentications['api-key'];
+            // apiKey.apiKey = config.mailApiKey;
 
-            // Configure API key authorization: partner-key
-            let partnerKey = defaultClient.authentications['partner-key'];
-            partnerKey.apiKey = config.mailApiKey;
+            // // Configure API key authorization: partner-key
+            // let partnerKey = defaultClient.authentications['partner-key'];
+            // partnerKey.apiKey = config.mailApiKey;
 
             let api = new SibApiV3Sdk.AccountApi();
             api.getAccount().then(function(data) {
                 console.log('API called successfully. Returned data: ' + data);
-                console.log(data);
+                // console.log(data);
             }, function(error) {
                 console.error(error);
             });
